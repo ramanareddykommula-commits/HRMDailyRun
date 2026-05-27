@@ -46,7 +46,7 @@ export class DashboardPage {
 
         // Main Dashboard
         this.welcomeHeader = page.locator(
-            "//h1[contains(text(),'Welcome back')]"
+            "//*[contains(text(),'Welcome')]"
         );
 
         this.activePatientsCard = page.locator(
