@@ -3,6 +3,13 @@ pipeline {
 
     stages {
 
+        stage('Clean Old Reports') {
+            steps {
+                bat 'rmdir /s /q allure-results'
+                bat 'rmdir /s /q allure-report'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 bat 'npm ci'
@@ -22,6 +29,7 @@ pipeline {
             allure([
                 includeProperties: false,
                 jdk: '',
+                reportBuildPolicy: 'ALWAYS',
                 results: [[path: 'allure-results']]
             ])
         }
