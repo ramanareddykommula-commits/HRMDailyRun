@@ -5,8 +5,10 @@ pipeline {
 
         stage('Clean Old Reports') {
             steps {
-                bat 'rmdir /s /q allure-results'
-                bat 'rmdir /s /q allure-report'
+                bat '''
+                IF EXIST allure-results rmdir /s /q allure-results
+                IF EXIST allure-report rmdir /s /q allure-report
+                '''
             }
         }
 
@@ -30,7 +32,8 @@ pipeline {
                 includeProperties: false,
                 jdk: '',
                 reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']]
+                results: [[path: 'allure-results']],
+                tools: [allure: 'Allure']
             ])
         }
     }
