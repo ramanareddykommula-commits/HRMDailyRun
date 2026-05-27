@@ -32,8 +32,7 @@ pipeline {
                 includeProperties: false,
                 jdk: '',
                 reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']],
-                tools: [allure: 'Allure']
+                results: [[path: 'allure-results']]
             ])
         }
     }
