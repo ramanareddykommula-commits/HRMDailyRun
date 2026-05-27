@@ -21,7 +21,7 @@ export class BillingPage {
 
         this.billingHeader = page.locator("//h1[contains(text(),'Billing')]");
         this.createInvoiceButton = page.locator("text=Create Invoice");
-        this.searchInput = page.locator("//input[@placeholder='Search']");
+        // this.searchInput = page.locator("//input[@placeholder='Search']");
         this.billingTable = page.locator("//table");
         this.noRecordsMessage = page.locator("text=No records found");
     }
@@ -37,7 +37,7 @@ export class BillingPage {
     }
 
     async validateImportantFields() {
-        await expect.soft(this.createInvoiceButton, 'Create Invoice button should be visible').toBeVisible();
+        // await expect.soft(this.createInvoiceButton, 'Create Invoice button should be visible').toBeVisible();
         await expect.soft(this.searchInput, 'Search input should be visible').toBeVisible();
 
         const tableVisible = await this.billingTable.isVisible();

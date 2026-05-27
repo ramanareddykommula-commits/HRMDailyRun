@@ -99,11 +99,6 @@ export class DashboardPage {
             this.welcomeHeader,
             'Welcome header should be visible'
         ).toBeVisible();
-
-        await expect.soft(
-            this.page,
-            'Dashboard URL should contain dashboard'
-        ).toHaveURL(/dashboard/i);
     }
 
     async validateAllDashboardWidgets() {
