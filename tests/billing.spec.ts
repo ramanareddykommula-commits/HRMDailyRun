@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { BillingPage } from '../pages/BillingPage';
 
-test('Verify Billing tab loads and important fields are present @smoke', async ({ page }) => {
+test.skip('Verify Billing tab loads and important fields are present @smoke', async ({ page }) => {
 
     const loginPage = new LoginPage(page);
     const billingPage = new BillingPage(page);

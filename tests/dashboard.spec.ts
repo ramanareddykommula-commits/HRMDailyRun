@@ -13,11 +13,9 @@ test('Verify dashboard loads successfully @smoke', async ({ page }) => {
     //     process.env.PASSWORD!
     // );
 
-
-    await loginPage.login("ramanareddyk_qtp@live.in","ramana123")
+    await loginPage.login("ramanareddyk_qtp@live.in","ramana123");
     await dashboardPage.openDashboard();
     await dashboardPage.verifyDashboardLoaded();
     await dashboardPage.validateAllDashboardWidgets();
-
-
+    
 });
