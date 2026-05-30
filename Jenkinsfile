@@ -43,7 +43,14 @@ pipeline {
 
             // Send Email
             emailext(
-                subject: "Daily Execution Playwright Execution Report - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                to: 'ramanareddy.kommula@gmail.com',
+
+                subject: "Daily Execution Playwright Report - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+
+                mimeType: 'text/html',
+
+                attachLog: true,
+                compressLog: true,
 
                 body: """
                 <h2>Playwright Automation Execution</h2>
@@ -66,15 +73,13 @@ pipeline {
                 </a>
                 </p>
 
+                <br>
+
                 <p>
                 Regards,<br>
                 Jenkins Automation
                 </p>
-                """,
-
-                mimeType: 'text/html',
-
-                to: 'ramanareddy.kommula@gmail.com'
+                """
             )
         }
     }
