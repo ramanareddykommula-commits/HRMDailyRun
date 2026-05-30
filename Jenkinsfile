@@ -3,28 +3,9 @@ pipeline {
 
     stages {
 
-        stage('Clean Old Reports') {
+        stage('Run Tests') {
             steps {
-                bat '''
-                IF EXIST allure-results rmdir /s /q allure-results
-                IF EXIST allure-report rmdir /s /q allure-report
-                '''
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                bat 'npm ci'
-            }
-        }
-
-        stage('Run Playwright Tests') {
-            steps {
-
-                // Continue even if tests fail
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    bat 'npx playwright test'
-                }
+                bat 'npx playwright test'
             }
         }
     }
@@ -33,53 +14,20 @@ pipeline {
 
         always {
 
-            // Generate Allure Report
-            allure([
-                includeProperties: false,
-                jdk: '',
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']]
-            ])
-
-            // Send Email
             emailext(
-                to: 'ramanareddy.kommula@gmail.com',
-
-                subject: "Daily Execution Playwright Report - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-
-                mimeType: 'text/html',
-
-                attachLog: true,
-                compressLog: true,
+                subject: "Playwright Report - ${currentBuild.currentResult}",
 
                 body: """
-                <h2>Playwright Automation Execution</h2>
+                Build completed.
 
-                <p><b>Project:</b> ${env.JOB_NAME}</p>
+                Status: ${currentBuild.currentResult}
 
-                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                Report:
+                ${env.BUILD_URL}allure
+                """,
 
-                <p><b>Status:</b> ${currentBuild.currentResult}</p>
-
-                <p>
-                <a href="${env.BUILD_URL}allure">
-                Open Allure Dashboard
-                </a>
-                </p>
-
-                <p>
-                <a href="${env.BUILD_URL}console">
-                Open Console Output
-                </a>
-                </p>
-
-                <br>
-
-                <p>
-                Regards,<br>
-                Jenkins Automation
-                </p>
-                """
+                to: 'ramanareddy.kommula@gmail.com',
+                attachLog: true
             )
         }
     }
